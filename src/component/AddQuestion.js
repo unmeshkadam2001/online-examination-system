@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import './AddQuestion.css';
 
 function QuestionForm() {
   const [subjectName, setSubjectName] = useState("");
@@ -74,16 +75,16 @@ function QuestionForm() {
     return (
       <div key={index}>
         <h3>Question {index + 1}</h3>
-        <label htmlFor={`question-${index}-desc`}>Description:</label>
+        <label htmlFor={`question-${index}-desc`}>Description:</label><br />
         <input
           id={`question-${index}-desc`}
           name="questionDesc"
           type="text"
           value={question.questionDesc}
           onChange={(event) => handleQuestionChange(index, event)}
-        />
+        /><br />
 
-        <label htmlFor={`question-${index}-level`}>Level:</label>
+        <label htmlFor={`question-${index}-level`}>Level:</label><br />
         <select
           id={`question-${index}-level`}
           name="questionLevel"
@@ -93,46 +94,46 @@ function QuestionForm() {
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
-        </select>
+        </select><br />
 
-        <label htmlFor={`question-${index}-option1`}>Option 1:</label>
+        <label htmlFor={`question-${index}-option1`}>Option 1:</label><br />
         <input
           id={`question-${index}-option1`}
           name="option1"
           type="text"
           value={question.option1}
           onChange={(event) => handleQuestionChange(index, event)}
-        />
+        /><br />
 
-        <label htmlFor={`question-${index}-option2`}>Option 2:</label>
+        <label htmlFor={`question-${index}-option2`}>Option 2:</label><br />
         <input
           id={`question-${index}-option2`}
           name="option2"
           type="text"
           value={question.option2}
           onChange={(event) => handleQuestionChange(index, event)}
-        />
-        <label htmlFor={`question-${index}-option3`}>Option 3:</label>
+        /><br />
+        <label htmlFor={`question-${index}-option3`}>Option 3:</label><br />
         <input
           id={`question-${index}-option3`}
           name="option3"
           type="text"
           value={question.option3}
           onChange={(event) => handleQuestionChange(index, event)}
-        />
+        /><br />
 
-        <label htmlFor={`question-${index}-option4`}>Option 4:</label>
+        <label htmlFor={`question-${index}-option4`}>Option 4:</label><br />
         <input
           id={`question-${index}-option4`}
           name="option4"
           type="text"
           value={question.option4}
           onChange={(event) => handleQuestionChange(index, event)}
-        />
+        /><br />
 
         <label htmlFor={`question-${index}-correct-option`}>
           Correct Option:
-        </label>
+        </label><br />
         <select
           id={`question-${index}-correct-option`}
           value={question.isCorrect}
@@ -142,28 +143,28 @@ function QuestionForm() {
           <option value="2">Option 2</option>
           <option value="3">Option 3</option>
           <option value="4">Option 4</option>
-        </select>
-
+        </select><br />
+        <br></br>
         <button onClick={() => handleRemoveQuestion(index)}>
           Remove Question
-        </button>
+        </button><br />
       </div>
     );
   };
 
   return (
-    <div>
+    <div >
       <h2>Subject Form</h2>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="subject-name">Subject Name:</label>
+        <label htmlFor="subject-name">Subject Name:</label><br />
         <input
           id="subject-name"
           name="subjectName"
           type="text"
           value={subjectName}
           onChange={(event) => setSubjectName(event.target.value)}
-        />
-        <label htmlFor="subject-no-of-questions">Number of Questions:</label>
+        /><br />
+        <label htmlFor="subject-no-of-questions">Number of Questions:</label><br />
         <input
           id="subject-no-of-questions"
           name="subjectNoOfQuestions"
@@ -172,14 +173,14 @@ function QuestionForm() {
           onChange={(event) =>
             setSubjectNoOfQuestions(parseInt(event.target.value))
           }
-        />
+        /><br />
 
         <h2>Questions</h2>
         {questions.map(renderQuestion)}
 
         <button type="button" onClick={handleAddQuestion}>
           Add Question
-        </button>
+        </button><br />
 
         <button type="submit">Submit</button>
       </form>

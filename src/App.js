@@ -4,6 +4,7 @@
 // import NavigationBar from "./component/NavigationBar";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AddQuestion from './component/AddQuestion';
+import RemoveQuestionForm from "./component/RemoveQuestions";
 
 
 // const router = createBrowserRouter([
@@ -21,7 +22,8 @@ import AddQuestion from './component/AddQuestion';
 
 function App() {
 
-  return <AddQuestion />
+  // return <AddQuestion />
+  return <RemoveQuestionForm />
 
   // return <AddCustomer />;
   //  return <Login />;
