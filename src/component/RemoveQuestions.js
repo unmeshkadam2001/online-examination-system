@@ -11,8 +11,9 @@ function RemoveQuestionForm() {
     try {
       const response = axios.get(
         `http://localhost:8080/remove-subject?subjectName=${subjectName}`
-      ).then(response => {
+      ).then((response) => {
         console.log(response.data);
+        setResponseData(response.data);
       });
     } catch (error) {
       setResponseData(null);
@@ -36,7 +37,7 @@ function RemoveQuestionForm() {
         <br />
         <button type="submit">Submit</button>
       </form>
-      {responseData.len && (
+      {responseData && (
         <div style={{color: "red"}}>
           <h3>Response from Server:</h3>
           <pre>{responseData}</pre>
