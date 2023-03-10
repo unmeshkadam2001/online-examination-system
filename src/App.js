@@ -6,6 +6,7 @@ import AddQuestion from './component/AddQuestion';
 import RemoveQuestionForm from "./component/RemoveQuestions";
 import AdminHomePage from "./component/AdminHomePage";
 import FetchUserDataForm from "./component/FetchUserData";
+import Question from './component/Question';
 
 
 const router = createBrowserRouter([
