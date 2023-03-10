@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import './AfterLoginRegister.css';
-import { computeHeadingLevel } from '@testing-library/react';
+
 
 export default function AfterLoginRegister() {
 
-    let studentId = 1;
-
+    let studentId = 2;
+    let qId, uId, level;
     const [level1Score, setLevel1Score] = useState(0);
     const [level2Score, setLevel2Score] = useState(0);
     const [level3Score, setLevel3Score] = useState(0);
     const [index, setIndex] = useState(0);
     const [selectedOption, setSelectedOption] = useState(0);
     const [score, setScore] = useState(0);
+    const [currentLevel, setCurrentLevel] = useState(0);
+    const [currentLevelScore, setCurrentLevelScore] = useState(0);
 
     const [userData, setUserData] = useState([{
         isCorrect: '',
@@ -42,20 +44,25 @@ export default function AfterLoginRegister() {
     }, []);
 
 
-    function currentLevel() {
+    function currentLevell() {
         if (level1Score == 0) {
+            setCurrentLevel(1);
             return 1;
         } else if (level2Score !== 0) {
+            setCurrentLevel(2)
+            setCurrentLevelScore(level1Score)
             return 2;
         }
         else {
+            setCurrentLevel(3)
+            setCurrentLevelScore(level2Score)
             return 3;
         }
     }
 
 
     function loadSubject(subjectName) {
-        let level = currentLevel();
+        level = currentLevell();
         console.log(level)
         let url = `http://localhost:8080/displayQuestionOfParticularSubject?subjectName=${subjectName}&level=${level}`;
         axios
@@ -63,6 +70,9 @@ export default function AfterLoginRegister() {
             .then(response => {
                 console.log("okay so far")
                 setUserData(response.data);
+                if(response.data.length == 0){
+                    console.log("You are not eligible for this test")
+                }
                 console.log(response.data);
                 sessionStorage.setItem('userData', userData);
             });
@@ -78,7 +88,7 @@ export default function AfterLoginRegister() {
         if(selectedOption == userData[index].isCorrect){
             setScore(score+1);
         }    
-        let qId, uId;
+       
         qId = userData[index].questionId;
         uId = 1;
         let url = `http://localhost:8080/setSelectedOption?qId=${qId}&uId=${uId}&selectedOption=${selectedOption}`;
@@ -88,7 +98,20 @@ export default function AfterLoginRegister() {
                 console.log("okay so far")
                 console.log(response.data);
             });    
+
     }
+    // function handleClickSubmit(e){
+
+    //     let url = `localhost:8080/setScoreWithId?score=${score}&uId=${uId}&level=${level}&sId=${userData[index].subjectId}`;
+    //     axios
+    //         .get(url)
+    //         .then(response => {
+    //             console.log("okay so far")
+    //             console.log(response.data);
+    //             console.log(score)
+    //         });    
+    // }
+
     return (
         <div>
             <div class="row">
@@ -96,7 +119,8 @@ export default function AfterLoginRegister() {
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">OS</h5>
-                            <p class="card-text">Your Score: {level1Score}</p>
+                            <p class="card-text">Your Current Level: {currentLevel}</p>
+                            <p class="card-text">Your Current Level Score: {currentLevelScore}</p>
                             <button onClick={() => loadSubject("OS")} className="btn btn-primary">Start Test</button>
                         </div>
                     </div>
@@ -105,7 +129,8 @@ export default function AfterLoginRegister() {
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">CN</h5>
-                            <p class="card-text">Your Score: {level1Score}</p>
+                            <p class="card-text">Your Current Level: {currentLevel}</p>
+                            <p class="card-text">Your Current Level Score: {currentLevelScore}</p>
                             <button onClick={() => loadSubject("CN")} className="btn btn-primary">Start Test</button>
 
                         </div>
@@ -115,7 +140,8 @@ export default function AfterLoginRegister() {
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">DBMS</h5>
-                            <p class="card-text">Your Score: {level1Score}</p>
+                            <p class="card-text">Your Current Level: {currentLevel}</p>
+                            <p class="card-text">Your Current Level Score: {currentLevelScore}</p>
                             <button onClick={() => loadSubject("DBMS")} className="btn btn-primary">Start Test</button>
                         </div>
                     </div>
@@ -124,7 +150,8 @@ export default function AfterLoginRegister() {
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">DSA</h5>
-                            <p class="card-text">Your Score: {level1Score}</p>
+                            <p class="card-text">Your Current Level: {currentLevel}</p>
+                            <p class="card-text">Your Current Level Score: {currentLevelScore}</p>
                             <button onClick={() => loadSubject("DSA")} className="btn btn-primary">Start Test</button>
                         </div>
                     </div>
@@ -182,6 +209,10 @@ export default function AfterLoginRegister() {
                                                 <i className="fa fa-angle-right ml-2"></i></button>
                                         </div>
                                     </div>
+                                        {/* <div className="d-flex flex-row justify-content-between align-items-right p-3 bg-white">
+                                            <button className="btn btn-primary" type="button" onClick={handleClickSubmit}>Submit
+                                                <i className="fa fa-angle-right ml-2"></i></button>
+                                        </div> */}
                                 </div>
                             </div>
                         </div>
